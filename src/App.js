@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import Landing from './Landing';
+import Profile from './Profile';
+import Friends from './Friends';
+import Projects from './Projects';
 import './App.css';
 
-function App() {
-  return (
+class App extends Component {
+  constructor(){
+    super()
+    this.state={
+      view:'Landing',
+      profile:{},
+      friends:[],
+      projects:[],
+    }
+  }
+
+  renderView(){
+    switch (this.state.view) {
+      case 'Profile':
+        return <Profile data={this.state.profile} />
+        break;
+      case 'Friends':
+        return <Friends data={this.state.friends} />
+        break;
+      case 'Projects':
+        return <Projects data={this.state.projects} />
+        break;
+      default:
+        return <Landing />
+    }
+  }
+
+  render(){
+    let currentView= this.renderView()
+    
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {currentView}
     </div>
-  );
+    )
+  }
 }
 
 export default App;
