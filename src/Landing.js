@@ -8,7 +8,7 @@ class Landing extends Component{
 			password:''
 		}
 		this.handleChange=this.handleChange.bind(this)
-		this.handleChange=this.handleChange.bind(this)
+		this.authenticate=this.authenticate.bind(this)
 	}
 
 
@@ -20,8 +20,14 @@ class Landing extends Component{
 
 	authenticate(){
 		if (this.state.email && this.state.password){
+			const profile={
+				name:'Matt Groberg'
+			}
+			this.props.onLogin(profile)
 		}
 	}
+
+	
 
 	render(){
 		const layout={
