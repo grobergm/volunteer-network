@@ -4,7 +4,7 @@ import SideNav from './SideNav';
 import Landing from './Landing';
 import Profile from './Profile';
 import Friends from './Friends';
-import Projects from './Projects';
+import ProjectList from './ProjectList';
 import './App.css';
 
 class App extends Component {
@@ -18,16 +18,24 @@ class App extends Component {
     }
     this.handleLogin=this.handleLogin.bind(this)
     this.handleLogout=this.handleLogout.bind(this)
+    this.handleChangeView=this.handleChangeView.bind(this)
   }
 
   handleLogin(profile){
     this.setState({view:'Profile'})
     this.setState({profile:profile})
+    this.setState({friends:profile.friendIds})
+    this.setState({projects:profile.projectIds})
   }
 
   handleLogout(){
     this.setState({view:'Landing'})
     this.setState({profile:{}})
+  }
+
+  handleChangeView(selectedView){
+    this.setState({view:selectedView})
+    console.log(this.state)
   }
 
   renderView(){
@@ -39,7 +47,7 @@ class App extends Component {
         return <Friends friends={this.state.friends} />
         break;
       case 'Projects':
-        return <Projects projects={this.state.projects} />
+        return <ProjectList projects={this.state.projects} />
         break;
       default:
         return <Profile profile={this.state.profile} />
@@ -57,8 +65,12 @@ class App extends Component {
           <Nav onLogout={this.handleLogout} />
           <div className="container">
             <div className="row">
-            <SideNav/>
+            <div className="col-3">
+              <SideNav onChangeView={this.handleChangeView} currentView={this.state.view}/>
+            </div>
+            <div className="col-9">
             {currentView}
+            </div>
             </div>
           </div>
         </div>

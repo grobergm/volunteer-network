@@ -1,17 +1,23 @@
 import React from 'react';
+import ProfileTab from './ProfileTab';
 
-function SideNav(props){
+function SideNav({onChangeView, currentView}){
+
+	const tabs=['Profile','Friends','Projects']
+
 	return(
 		<ul className="nav flex-column">
-		  <li className="nav-item">
-		    <a className="nav-link active">Profile</a>
-		  </li>
-		  <li className="nav-item">
-		    <a className="nav-link">Friends</a>
-		  </li>
-		  <li className="nav-item">
-		    <a className="nav-link">Projects</a>
-		  </li>
+		{
+			tabs.map(tab=>{
+				return (
+					<ProfileTab 
+				  	tab={tab}
+				  	currentView={currentView}
+				  	onChangeView={onChangeView} />
+				)
+			})
+		  
+		}
 		</ul>
 	)
 }
