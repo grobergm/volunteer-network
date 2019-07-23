@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Nav from './Nav';
 import SideNav from './SideNav';
-import Landing from './Landing';
+import Login from './Login';
+import SignUp from './SignUp';
 import Profile from './Profile';
 import Friends from './Friends';
 import ProjectList from './ProjectList';
@@ -11,7 +12,7 @@ class App extends Component {
   constructor(){
     super()
     this.state={
-      view:'Landing',
+      view:'Login',
       profile:{},
       friends:[],
       projects:[],
@@ -29,7 +30,7 @@ class App extends Component {
   }
 
   handleLogout(){
-    this.setState({view:'Landing'})
+    this.setState({view:'Login'})
     this.setState({profile:{}})
   }
 
@@ -57,8 +58,10 @@ class App extends Component {
   render(){
     let currentView= this.renderView()
     
-    if (this.state.view==="Landing"){
-      return <Landing onLogin={this.handleLogin} />
+    if (this.state.view==="Login"){
+      return <Login onLogin={this.handleLogin} switchToSignup={()=>{this.handleChangeView('SignUp')}} />
+    } else if (this.state.view==='SignUp'){
+      return <SignUp onLogin={this.handleLogin} switchToLogin={()=>{this.handleChangeView('Login')}} />
     } else {
       return (
         <div>
