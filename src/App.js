@@ -13,9 +13,7 @@ class App extends Component {
     super()
     this.state={
       view:'Login',
-      profile:{},
-      friends:[],
-      projects:[],
+      profile:{}
     }
     this.handleLogin=this.handleLogin.bind(this)
     this.handleLogout=this.handleLogout.bind(this)
@@ -25,13 +23,12 @@ class App extends Component {
   handleLogin(profile){
     this.setState({view:'Profile'})
     this.setState({profile:profile})
-    this.setState({friends:profile.friendIds})
-    this.setState({projects:profile.projectIds})
   }
 
   handleLogout(){
     this.setState({view:'Login'})
     this.setState({profile:{}})
+    localStorage.clear()
   }
 
   handleChangeView(selectedView){
@@ -45,10 +42,10 @@ class App extends Component {
         return <Profile profile={this.state.profile} />
         break;
       case 'Friends':
-        return <Friends friends={this.state.friends} />
+        return <Friends profile={this.state.profile } />
         break;
       case 'Projects':
-        return <ProjectList projects={this.state.projects} />
+        return <ProjectList profile={this.state.profile} />
         break;
       default:
         return <Profile profile={this.state.profile} />

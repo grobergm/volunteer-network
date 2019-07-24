@@ -32,7 +32,7 @@ class Login extends Component{
 			.then(response=>response.json())
 			.then(res=>{
 				if (res.success){
-					// localStorage['token']=res.token;
+					localStorage['token']=res.token;
 					this.props.onLogin(res.profile)
 				} else {
 					console.log(res.message)
