@@ -28,14 +28,17 @@ class ProjectList extends Component{
 	}
 
 	newProject(){
+		console.log('newProject running')
 		fetch(`http://localhost:8000/api/projects/${this.props.profile._id}`,{
-			method:'POST',
-			body: JSON.stringify({name:this.state.name,tasks:this.state.tasks}),
-			headers:{
-				'Content-Type': 'application/json',
-				'authorization': localStorage['token']
-			},
-		})
+				method:'POST',
+				body: JSON.stringify({name:this.state.name,tasks:this.state.tasks}),
+				headers:{
+					'Content-Type': 'application/json',
+					'authorization': localStorage['token']
+				},
+			})
+		this.setState({projects:[...this.state.projects,{name:this.state.name,tasks:this.state.tasks}]})
+		this.setState({name:'',currentTask:'',tasks:[]})
 	}
 
 	handleChange(e){
