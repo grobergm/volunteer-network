@@ -28,7 +28,6 @@ class ProjectList extends Component{
 	}
 
 	newProject(){
-		console.log('newProject running')
 		fetch(`http://localhost:8000/api/projects/${this.props.profile._id}`,{
 				method:'POST',
 				body: JSON.stringify({name:this.state.name,tasks:this.state.tasks}),
