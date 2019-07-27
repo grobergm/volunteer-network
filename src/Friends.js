@@ -7,7 +7,7 @@ class FriendList extends Component{
 		super(props)
 		this.state={
 			searchText:'',
-			friendDetail:{},
+			friendDetail:null,
 			message:''
 		}
 		this.handleChange=this.handleChange.bind(this)
@@ -18,6 +18,17 @@ class FriendList extends Component{
 		this.setState({
 			[e.target.name]:e.target.value
 		})
+	}
+
+	handleFollow(friendId){
+		fetch(`http://localhost:8000/api/follow/${this.props.profile._id}`,{
+				method:'PUT',
+				body: JSON.stringify({friendId:friendId}),
+				headers:{
+					'Content-Type': 'application/json',
+					'authorization': localStorage['token']
+				},
+			})
 	}
 
 	searchByEmail(){
@@ -50,10 +61,19 @@ class FriendList extends Component{
 					</div>
 				</div>
 				{
+					// change button to unfollow if their id is on list
 					this.state.friendDetail ? 
-					<Profile profile={this.state.friendDetail}  /> :
+					<div>
+						<button 
+							className="btn btn-secondary" 
+							onClick={()=>{this.handleFollow(this.state.friendDetail._id)}}>
+							Follow
+						</button>
+						<Profile profile={this.state.friendDetail}  />
+					</div>
+					:
 					this.props.profile.friends.map(friend=>{
-						return <p>{friend.name}</p>
+						return <p onClick={()=>{this.setState({friendDetail:friend})}}>{friend.name}</p>
 					})
 				}
 			</div>
