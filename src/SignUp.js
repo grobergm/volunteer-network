@@ -61,7 +61,7 @@ class SignUp extends Component{
 							    <label htmlFor="name">Display Name</label>
 							    <input 
 							    	onChange={this.handleChange}
-							    	type="name" 
+							    	type="text" 
 							    	className="form-control" 
 							    	id="name" 
 							    	name="name"
