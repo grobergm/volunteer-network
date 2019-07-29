@@ -5,7 +5,8 @@ function Profile({profile}){
 
 	return (
 		<div>
-			<h1>{profile.name}'s Timeline</h1>
+			<h1>{profile.name}</h1>
+			<p>{profile.email}</p>	
 			{
 				profile.timeLine.map(activity=>{
 					return (
