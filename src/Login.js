@@ -35,7 +35,6 @@ class Login extends Component{
 					localStorage['token']=res.token;
 					this.props.onLogin(res.profile)
 				} else {
-					console.log(res.message)
 				}
 			})
 		}

@@ -21,8 +21,9 @@ class App extends Component {
   }
 
   handleLogin(profile){
-    this.setState({view:'Profile'})
+    console.log(profile)
     this.setState({profile:profile})
+    this.setState({view:'Profile'})
   }
 
   handleLogout(){
@@ -33,7 +34,6 @@ class App extends Component {
 
   handleChangeView(selectedView){
     this.setState({view:selectedView})
-    console.log(this.state)
   }
 
   renderView(){

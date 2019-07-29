@@ -1,44 +1,59 @@
 import React, { Component } from 'react';
 import Project from './Project';
+import Moment from 'moment';
 
 class ProjectList extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			projects:[],
-			name:'',
-			currentTask:'',
+			projectName:'',
+			taskDescription:'',
+			taskDate: new Date(),
 			tasks:[],
-			date:new Date()
 		}
 		this.handleChange=this.handleChange.bind(this)
-		this.getProjects=this.getProjects.bind(this)
 		this.newProject=this.newProject.bind(this)
 		this.addTask=this.addTask.bind(this)
 	}
 
 	componentDidMount(){
-		this.getProjects()
+		this.resetTaskForm()
 	}
 
-	getProjects(){
-		fetch(`http://localhost:8000/api/projects/${this.props.profile._id}`)
-		.then(response=>response.json())
-		.then(res=>this.setState({projects:res.projects}))
+	resetTaskForm(){
+		const newDate= new Date();
+		const isoDate= newDate.toISOString().substr(0, 10)
+		this.setState({projectName:'',taskDescription:'',taskDate:isoDate, tasks:[]})
 	}
 
 	newProject(){
 		fetch(`http://localhost:8000/api/projects/${this.props.profile._id}`,{
 				method:'POST',
-				body: JSON.stringify({name:this.state.name,tasks:this.state.tasks}),
+				body: JSON.stringify({name:this.state.projectName,tasks:this.state.tasks}),
 				headers:{
 					'Content-Type': 'application/json',
 					'authorization': localStorage['token']
 				},
 			})
-		this.setState({projects:[...this.state.projects,{name:this.state.name,tasks:this.state.tasks}]})
-		this.setState({name:'',currentTask:'',tasks:[]})
-	}
+			.then(res=>{
+					console.log(res.json())
+
+				if (res.success){
+					fetch(`http://localhost:8000/api/users/timeline/${this.props.profile._id}`,
+					{
+						method:'PUT',
+						body:JSON.stringify(
+							{activity:{
+								description:`Created Project: ${res.project.name}`,
+								linkId:res.project._id,
+								date: new Moment()}
+							}
+							)
+					})
+				}
+			})
+		this.setState({projects:[...this.state.projects,{name:this.state.projectName,tasks:this.state.tasks}]})
+}
 
 	handleChange(e){
 		this.setState({
@@ -47,10 +62,9 @@ class ProjectList extends Component{
 	}
 
 	addTask(){
-		this.setState({
-			tasks:[...this.state.tasks,this.state.currentTask]
-		})
-		this.setState({currentTask:''})
+		const newTask={description:this.state.taskDescription,date:this.state.taskDate,completed:false}
+		const newTaskList=[newTask,...this.state.tasks];
+		this.setState({tasks:newTaskList})
 	}
 
 	render(){
@@ -59,16 +73,16 @@ class ProjectList extends Component{
 				<h1>Volunteer Projects</h1>
 	
        	<div className="form-group">
-				  <label htmlFor="name">Name of Project</label>
+				  <label htmlFor="projectName">Name of Project</label>
 				  <input 
 				  	onChange={this.handleChange}
 				  	type="text" 
 				  	className="form-control" 
-				  	id="name" 
-				  	name="name"
+				  	id="projectName" 
+				  	name="projectName"
 				  	aria-describedby="nameHelp" 
 				  	placeholder="Describe the project"
-				  	value={this.state.name}/>
+				  	value={this.state.projectName}/>
 					<label htmlFor="task">Add Tasks To Project</label>
 				  <div className="input-group mb-3">
 					  <input 
@@ -76,10 +90,17 @@ class ProjectList extends Component{
 					  	type="text" 
 					  	className="form-control" 
 					  	id="task" 
-					  	name="currentTask"
+					  	name="taskDescription"
 					  	aria-describedby="taskHelp" 
 					  	placeholder="Enter a Task"
-					  	value={this.state.currentTask}/>
+					  	value={this.state.taskDescription}/>
+					  <input 
+					  	onChange={this.handleChange}
+					  	type="date"
+					  	className="form-control"
+					  	id="taskDate"
+					  	name="taskDate"
+					  	value={this.state.taskDate}/>
 					  <div className="input-group-append">
 						  <button 
 						  	className='btn btn-success' 
@@ -91,7 +112,16 @@ class ProjectList extends Component{
 				  <ol>
 				  	{
 				  		this.state.tasks.map((task,index)=>{
-				  			return <li key={index}>{task}</li>
+				  			return (
+				  			<li key={index}>
+				  				{task.description}
+				  				<span
+				  				style={{marginLeft:'1rem'}}
+				  				 className="badge badge-secondary">
+				  					{Moment(task.date).format("MMM Do")}
+				  				</span>
+				  			</li>
+				  			)
 				  		})
 				  	}
 				  </ol>
@@ -102,7 +132,7 @@ class ProjectList extends Component{
 					className="btn btn-primary" 
 					onClick={this.newProject}>Start New</button>
 				{
-					this.state.projects.map((project,index)=>{
+					this.props.profile.projects.map((project,index)=>{
 						return <Project project={project} key={index}/>
 					})
 				}
