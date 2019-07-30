@@ -60,6 +60,18 @@ class ProjectList extends Component{
 		})
 	}
 
+	handleSignUp(projectId){
+		fetch(`http://localhost:8000/api/projects/signup/${this.props.profile._id}`,
+			{
+				method:'PUT',
+				body: JSON.stringify({projectId:projectId}),
+				headers:{
+					'Content-Type': 'application/json',
+					'authorization': localStorage['token']
+			}
+		})
+	}
+
 	handleChange(e){
 		this.setState({
 			[e.target.name]:e.target.value
@@ -128,7 +140,10 @@ class ProjectList extends Component{
 
 			       	{
 		       			this.state.friendProjects.map((project,index)=>{
-									return <Project project={project} key={index}/>
+									return <Project 
+										onSignUp={()=>{this.handleSignUp(project._id)}} 
+										project={project} 
+										key={index}/>
 								})
 	       			}
 

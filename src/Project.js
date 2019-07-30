@@ -1,13 +1,19 @@
 import React from 'react';
 import Moment from 'moment';
-function Project({project}){
+
+function Project(props){
 	return (
 	<div className="jumbotron jumbotron-fluid">
 	  <div className="container">
-	    <h1 className="display-4">{project.name}</h1>
+	    <h1 className="display-4">{props.project.name}</h1>
+	    {
+	    	props.onSignUp ? 
+	    	<button onClick={props.onSignUp} className="btn btn-danger">Sign Up</button> : null
+	    }
+	    
 	   	<ol>
 	    {
-	  		project.tasks.map((task,index)=>{
+	  		props.project.tasks.map((task,index)=>{
 	  			return (
 	  			<li key={index}>
 	  				{task.description}
