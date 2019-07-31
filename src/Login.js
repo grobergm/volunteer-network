@@ -40,8 +40,6 @@ class Login extends Component{
 		}
 	}
 
-	
-
 	render(){
 		const layout={
 			display:'flex',

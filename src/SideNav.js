@@ -8,10 +8,11 @@ function SideNav({onChangeView, currentView}){
 	return(
 		<ul className="nav flex-column">
 		{
-			tabs.map(tab=>{
+			tabs.map((tab,index)=>{
 				return (
 					<ProfileTab 
 				  	tab={tab}
+				  	key={index}
 				  	currentView={currentView}
 				  	onChangeView={onChangeView} />
 				)

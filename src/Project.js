@@ -9,7 +9,10 @@ function Project(props){
       <div className="card-body">
         <h5 className="card-title">Host: {props.project.host.name}</h5>
         <p className="card-text">Email: {props.project.host.email}</p>
-		    <button onClick={props.onSignUp} className="btn btn-danger">Sign Up</button>
+        {
+        	props.onSignUp ? <button onClick={props.onSignUp} className="btn btn-danger">Sign Up</button>
+        	: null
+        }
 		    	<div>
 		    		<h5 className="card-text">Volunteers ({props.project.volunteers.length})</h5>
 		    		{

@@ -43,8 +43,15 @@ class ProjectList extends Component{
 				'authorization': localStorage['token']
 			},
 		})
-		const newTimeLine=[{description:`Created Project: ${this.state.projectName}`,date: moment()}, ...this.props.profile.timeLine]
-		this.props.onProfileStateChange('timeline',newTimeLine)
+		.then(res=>res.json())
+		.then(response=>{
+			const newTimeLine=[{description:`Created Project: ${this.state.projectName}`,date: moment()}, ...this.props.profile.timeLine]
+			this.props.onProfileStateChange('timeLine',newTimeLine)
+			const newProjects=[response.project, ...this.props.profile.projects]
+			this.props.onProfileStateChange('projects',newProjects)
+			this.setState({view:'myProjects'})
+		})
+		
 	}
 
 	searchFriendProjects(){
@@ -69,6 +76,14 @@ class ProjectList extends Component{
 					'Content-Type': 'application/json',
 					'authorization': localStorage['token']
 			}
+		})
+		.then(res=>res.json())
+		.then(response=>{
+			const newTimeLine=[{description:`Signed up for: ${response.project.name}`,date: moment()}, ...this.props.profile.timeLine]
+			this.props.onProfileStateChange('timeLine',newTimeLine)
+			const newProjects=[response.project, ...this.props.profile.projects]
+			this.props.onProfileStateChange('projects',newProjects)
+			this.setState({view:'volProjects'})
 		})
 	}
 

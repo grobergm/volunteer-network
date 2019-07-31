@@ -18,10 +18,10 @@ class App extends Component {
     this.handleLogin=this.handleLogin.bind(this)
     this.handleLogout=this.handleLogout.bind(this)
     this.handleChangeView=this.handleChangeView.bind(this)
+    this.handleProfileStateChange=this.handleProfileStateChange.bind(this)
   }
 
   handleLogin(profile){
-    console.log(profile)
     this.setState({profile:profile})
     this.setState({view:'Profile'})
   }
@@ -36,16 +36,23 @@ class App extends Component {
     this.setState({view:selectedView})
   }
 
+  handleProfileStateChange(key,value){
+    const newProfileState={...this.state.profile}
+    newProfileState[key]=value;
+    console.log(newProfileState)
+    this.setState({profile:newProfileState})
+  }
+
   renderView(){
     switch (this.state.view) {
       case 'Profile':
         return <Profile profile={this.state.profile} />
         break;
       case 'Friends':
-        return <Friends profile={this.state.profile } />
+        return <Friends profile={this.state.profile} onProfileStateChange={this.handleProfileStateChange} />
         break;
       case 'Projects':
-        return <ProjectList profile={this.state.profile} />
+        return <ProjectList profile={this.state.profile} onProfileStateChange={this.handleProfileStateChange} />
         break;
       default:
         return <Profile profile={this.state.profile} />

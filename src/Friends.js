@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Profile from './Profile';
-
+import moment from 'moment'
 
 class FriendList extends Component{
 	constructor(props){
@@ -20,15 +20,23 @@ class FriendList extends Component{
 		})
 	}
 
-	handleFollow(friendId){
-		fetch(`http://localhost:8000/api/follow/${this.props.profile._id}`,{
+	handleFollow(friend){
+		fetch(`http://localhost:8000/api/follow/${this.props.profile._id}`,
+			{
 				method:'PUT',
-				body: JSON.stringify({friendId:friendId}),
+				body: JSON.stringify({friendId:friend._id,friendName:friend.name}),
 				headers:{
 					'Content-Type': 'application/json',
 					'authorization': localStorage['token']
-				},
-			})
+			}
+		})
+		.then(response=>{
+			const newTimeLine=[{description:`Started following: ${friend.name}`,date: moment()}, ...this.props.profile.timeLine]
+			this.props.onProfileStateChange('timeLine',newTimeLine);
+			const newFriends=[friend,...this.props.profile.friends]
+			this.props.onProfileStateChange('friends',newFriends)
+			this.setState({friendDetail:null})
+		})
 	}
 
 	searchByEmail(){
@@ -54,7 +62,7 @@ class FriendList extends Component{
 				  	className="form-control" 
 				  	id="searchText" 
 				  	name="searchText"
-				  	placeholder="Find by Email"
+				  	placeholder="Find friend by email"
 				  	onChange={this.handleChange}/>
 				  <div className="input-group-append">
 					  <button className='btn btn-primary' onClick={this.searchByEmail}>Search</button>
@@ -65,17 +73,26 @@ class FriendList extends Component{
 					this.state.friendDetail ? 
 					<div>
 						<button 
-							className="btn btn-secondary" 
-							onClick={()=>{this.handleFollow(this.state.friendDetail._id)}}>
+							className="btn btn-primary" 
+							onClick={()=>{this.handleFollow(this.state.friendDetail)}}>
 							Follow
+						</button>
+						<button 
+							className="btn btn-secondary" 
+							onClick={()=>{this.setState({friendDetail:null})}}>
+							Hide
 						</button>
 						<Profile profile={this.state.friendDetail}  />
 					</div>
-					:
-					this.props.profile.friends.map(friend=>{
-						return <p onClick={()=>{this.setState({friendDetail:friend})}}>{friend.name}</p>
+					: null
+				}
+				{
+					this.props.profile.friends.map((friend, index)=>{
+						return <p key={index}>{friend.name} <button className="btn btn-primary" onClick={()=>{this.setState({friendDetail:friend})}}>View Timeline</button></p>
 					})
 				}
+
+
 			</div>
 		)
 	}

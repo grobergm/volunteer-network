@@ -8,9 +8,9 @@ function Profile({profile}){
 			<h1>{profile.name}</h1>
 			<p>{profile.email}</p>	
 			{
-				profile.timeLine.map(activity=>{
+				profile.timeLine.map((activity,index)=>{
 					return (
-					<p style={{borderBottom:'1px solid gray',padding:'1rem 0'}}>
+					<p key={index} style={{borderBottom:'1px solid gray',padding:'1rem 0'}}>
 						{activity.description}
 						<span
 							style={{marginLeft:'1rem'}}
