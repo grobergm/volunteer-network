@@ -3,7 +3,7 @@ import Moment from 'moment';
 
 function Project(props){
 	return (
-	<div className="col-6">
+	<div className="col-12 col-md-6 col-xl-3">
     <div className="card">
     	<h5 className="card-header">{props.project.name}</h5>
       <div className="card-body">

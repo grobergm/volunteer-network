@@ -46,7 +46,7 @@ class Login extends Component{
 			flexDirection:'column',
 			alignItems:'center',
 			justifyContent:'center',
-			marginTop:'4rem',
+			height:'100vh',
 		}
 		return(
 			<div style={layout}>

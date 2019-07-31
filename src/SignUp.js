@@ -48,12 +48,13 @@ class SignUp extends Component{
 			display:'flex',
 			flexDirection:'column',
 			alignItems:'center',
-			marginTop:'4rem'
+			justifyContent:'center',
+			height:'100vh',
 		}
 		return(
 			<div style={layout}>
 				<h1>Volunteer Network</h1>
-				<div className="card" style={{width: '18rem'}}>
+				<div className="card" style={{width:'18rem'}}>
 				  <div className="card-body">
 				    <h5 className="card-title">Sign up</h5>
 				    	<form onSubmit={this.onSubmit}>
@@ -94,7 +95,7 @@ class SignUp extends Component{
 				  </div>
 				</div>
 				<button 
-					style={{width:'18rem', marginTop:'2rem'}} 
+					style={{marginTop:'2rem',width:'18rem'}} 
 					className='btn btn-block btn-primary' 
 					onClick={this.props.switchToLogin}>Log In
 				</button>

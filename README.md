@@ -1,68 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Volunteer Network
 
-## Available Scripts
+### Contributors
+Matt Groberg
 
-In the project directory, you can run:
+### Vertion
+1.0
 
-### `npm start`
+## Description
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[Visit App]()
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Volunteer Network is a single page (full stack) app for coordinating volunteer projects. The Goal is to make it easy to start projects, track volunteers, and have a profile that shows a summary of your volunteer experiences. 
 
-### `npm test`
+In this app, users can:
+* Create password secured profiles and login
+* Find and add friends using the app
+* Create Projects, with tasks.
+* Sign up for Friend's projects
+* Show their activities on a timeline
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+This repo is the front-end of a full stack MERN app (MongoDB, Express, React, and NodeJS). To see repo for the server-side code [click here](https://github.com/grobergm/vol-api)
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Tech Stack
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+#### Front-End
+* React.js (View Library)
+* Bootstrap (CSS Components)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Back-End
+* Express.js (Server)
+* MongoDB (Database)
+* Mongoose (Object Data Modeling)
+* JSON Web Token (Authentication and Authorization)
+* Bcrypt (Password hashing)
 
-### `npm run eject`
+## Next Version
+This is an open source app, and if you would like to be a contributor, send me an email. Here are the next steps for this project:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Convert Timeline to own MongoDB collection, with details that can be summarized (such as: skills practiced, or progress towards goals). This will help with scalability (since we could populate only the most recent evetns on timeline)
+2. Assign Tasks to different volunteers (indicating start and completion time).
+3. Add Bootstrap progress bar to projects based on number of completed tasks
+4. Add Google Maps API to show location of projects
+5. Add more Profile information (such as goals, and summary of timeline activities)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Legal
+MIT Licence (c) Matthew Groberg 2019
