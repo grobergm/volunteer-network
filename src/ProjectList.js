@@ -12,7 +12,7 @@ class ProjectList extends Component{
 			taskDescription:'',
 			taskDate: new Date(),
 			tasks:[],
-			view:'myProjects'
+			view:'newProject'
 		}
 		this.handleChange=this.handleChange.bind(this)
 		this.newProject=this.newProject.bind(this)
@@ -105,16 +105,16 @@ class ProjectList extends Component{
 				<h1>Projects</h1>
 				<div className="btn-group">
 					<button 
+						onClick={()=>{this.setState({view:'newProject'})}} 
+						className="btn btn-success">Start
+					</button>
+					<button 
 						onClick={()=>{this.setState({view:'myProjects'})}} 
-						className="btn btn-primary">Hosting
+						className="btn btn-primary">Host
 					</button>
 					<button 
 						onClick={()=>{this.setState({view:'volProjects'})}} 
-						className="btn btn-secondary">Volunteering
-					</button>
-					<button 
-						onClick={()=>{this.setState({view:'newProject'})}} 
-						className="btn btn-success">Start New
+						className="btn btn-secondary">Volunteer
 					</button>
        	</div>
        	{
@@ -144,7 +144,7 @@ class ProjectList extends Component{
        			</div>
 
 						:
-						<div>
+						<div style={{maxWidth:'500px'}}>
 							<div className="form-group">
 			       		<h2>New Project</h2>
 							  <label htmlFor="projectName">Name of Project</label>
@@ -166,7 +166,7 @@ class ProjectList extends Component{
 								  	id="task" 
 								  	name="taskDescription"
 								  	aria-describedby="taskHelp" 
-								  	placeholder="Enter a Task"
+								  	placeholder="Task"
 								  	value={this.state.taskDescription}/>
 								  <input 
 								  	onChange={this.handleChange}
@@ -179,7 +179,7 @@ class ProjectList extends Component{
 									  <button 
 									  	className='btn btn-success' 
 									  	onClick={this.addTask}>
-									  		Add Task
+									  	Add
 									  </button>
 									</div>
 								</div>
@@ -201,10 +201,11 @@ class ProjectList extends Component{
 							  </ol>
 							  <button 
 									className="btn btn-primary" 
-									onClick={this.newProject}>Submit</button>
+									onClick={this.newProject}>Create Project</button>
 							</div>
 
 							<div>
+							<p>Projects Hosted by Friends</p>
 							  <div className="input-group mb-3">
 				       		<select 
 				       			id="selectFriendId" 
