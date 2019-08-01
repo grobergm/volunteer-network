@@ -3,10 +3,10 @@ import ProfileTab from './ProfileTab';
 
 function SideNav({onChangeView, currentView}){
 
-	const tabs=['Profile','Friends','Projects']
+	const tabs=['Profile','Friends','Projects',"Settings"]
 
 	return(
-		<ul className="nav flex-column">
+		<ul className="nav">
 		{
 			tabs.map((tab,index)=>{
 				return (

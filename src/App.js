@@ -45,19 +45,22 @@ class App extends Component {
   }
 
   handleDeleteProfile(){
-    fetch(`https://vol-net-api.herokuapp.com/api/users/${this.state.profile._id}`,{
-      method:'DELETE',
-      headers:{
-        'Content-Type': 'application/json',
-        'authorization': localStorage['token']
-      },
-    })
-    .then(res=>res.json())
-    .then(response=>{
-      if (response.success){
-        this.handleLogout()
-      }
-    })
+    if(window.confirm("Are you sure?")){
+      fetch(`https://vol-net-api.herokuapp.com/api/users/${this.state.profile._id}`,{
+        method:'DELETE',
+        headers:{
+          'Content-Type': 'application/json',
+          'authorization': localStorage['token']
+        },
+      })
+      .then(res=>res.json())
+      .then(response=>{
+        if (response.success){
+          this.handleLogout()
+        }
+      })
+    }
+    
   }
 
   renderView(){
@@ -71,6 +74,8 @@ class App extends Component {
       case 'Projects':
         return <ProjectList profile={this.state.profile} onProfileStateChange={this.handleProfileStateChange} />
         break;
+      case 'Settings':
+        return <button onClick={this.handleDeleteProfile} className='btn btn-danger'>Delete Profile</button>
       default:
         return <Profile profile={this.state.profile} />
     }
@@ -88,15 +93,12 @@ class App extends Component {
         <div>
           <Nav onLogout={this.handleLogout} />
           <div className="container">
-            <div className="row">
-            <div className="col-3">
+            <div className="col">
               <SideNav onChangeView={this.handleChangeView} currentView={this.state.view}/>
             </div>
-            <div className="col-9">
+            <div className="col">
             {currentView}
             </div>
-            </div>
-            <button onClick={this.handleDeleteProfile} className='btn btn-danger'>Delete Profile</button>
           </div>
         </div>
       )
