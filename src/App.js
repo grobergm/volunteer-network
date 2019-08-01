@@ -45,7 +45,7 @@ class App extends Component {
   }
 
   handleDeleteProfile(){
-    fetch(`https://vol-net-api.herokuapp.com/${this.state.profile._id}`,{
+    fetch(`https://vol-net-api.herokuapp.com/api/users/${this.state.profile._id}`,{
       method:'DELETE',
       headers:{
         'Content-Type': 'application/json',
