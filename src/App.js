@@ -75,7 +75,7 @@ class App extends Component {
         return <ProjectList profile={this.state.profile} onProfileStateChange={this.handleProfileStateChange} />
         break;
       case 'Settings':
-        return <button onClick={this.handleDeleteProfile} className='btn btn-danger'>Delete Profile</button>
+        return <div><h1>Settings</h1><button onClick={this.handleDeleteProfile} className='btn btn-danger'>Delete Profile</button></div>
       default:
         return <Profile profile={this.state.profile} />
     }
@@ -91,7 +91,7 @@ class App extends Component {
     } else {
       return (
         <div>
-          <Nav onLogout={this.handleLogout} />
+          <Nav onLogout={this.handleLogout} switchToSettings={()=>{this.handleChangeView('Settings')}} />
           <div className="container">
             <div className="col">
               <SideNav onChangeView={this.handleChangeView} currentView={this.state.view}/>

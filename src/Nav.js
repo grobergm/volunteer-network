@@ -6,9 +6,10 @@ function Nav(props){
 		  <li className="nav-item">
 		    <a className="nav-link"> <h2>Volunteer <br/> Network</h2></a>
 		  </li>
-		  <li className="nav-item active ml-auto">
+		  <li className="nav-item ml-auto">
+		    <a style={{cursor:'pointer'}} className="nav-link" onClick={props.switchToSettings}>⚙</a>
 		    <a style={{cursor:'pointer'}} className="nav-link" onClick={props.onLogout}>log-out</a>
-		  </li>
+			</li>
 		</ul>
 	)
 }

@@ -3,7 +3,7 @@ import ProfileTab from './ProfileTab';
 
 function SideNav({onChangeView, currentView}){
 
-	const tabs=['Profile','Friends','Projects',"Settings"]
+	const tabs=['Profile','Friends','Projects']
 
 	return(
 		<ul className="nav">
