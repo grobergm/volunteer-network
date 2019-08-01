@@ -35,7 +35,7 @@ class ProjectList extends Component{
 	}
 
 	newProject(){
-		fetch(`http://localhost:8000/api/projects/${this.props.profile._id}`,{
+		fetch(`https://vol-net-api.herokuapp.com/api/projects/${this.props.profile._id}`,{
 			method:'POST',
 			body: JSON.stringify({name:this.state.projectName,tasks:this.state.tasks}),
 			headers:{
@@ -55,7 +55,7 @@ class ProjectList extends Component{
 	}
 
 	searchFriendProjects(){
-		fetch(`http://localhost:8000/api/projects/${this.state.selectFriendId}`)
+		fetch(`https://vol-net-api.herokuapp.com/api/projects/${this.state.selectFriendId}`)
 		.then(response=>response.json())
 		.then(res=>{
 			console.log(res)
@@ -68,7 +68,7 @@ class ProjectList extends Component{
 	}
 
 	handleSignUp(projectId,userName){
-		fetch(`http://localhost:8000/api/projects/signup/${this.props.profile._id}`,
+		fetch(`https://vol-net-api.herokuapp.com/api/projects/signup/${this.props.profile._id}`,
 			{
 				method:'PUT',
 				body: JSON.stringify({projectId,userName}),

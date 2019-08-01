@@ -22,7 +22,7 @@ class SignUp extends Component{
 	onSubmit(event){
 		event.preventDefault();
 		if (this.state.name && this.state.email && this.state.password){
-			fetch('http://localhost:8000/api/register',{
+			fetch('https://vol-net-api.herokuapp.com/api/register',{
 				method:'POST',
 				body: JSON.stringify(this.state),
 				headers:{

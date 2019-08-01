@@ -22,7 +22,7 @@ class Login extends Component{
 		event.preventDefault();
 		if (this.state.email && this.state.password){
 		
-			fetch('http://localhost:8000/api/authenticate',{
+			fetch('https://vol-net-api.herokuapp.com/api/authenticate',{
 				method:'POST',
 				body: JSON.stringify(this.state),
 				headers:{

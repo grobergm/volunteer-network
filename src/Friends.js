@@ -21,7 +21,7 @@ class FriendList extends Component{
 	}
 
 	handleFollow(friend){
-		fetch(`http://localhost:8000/api/follow/${this.props.profile._id}`,
+		fetch(`https://vol-net-api.herokuapp.com/api/follow/${this.props.profile._id}`,
 			{
 				method:'PUT',
 				body: JSON.stringify({friendId:friend._id,friendName:friend.name}),
@@ -40,7 +40,7 @@ class FriendList extends Component{
 	}
 
 	searchByEmail(){
-		fetch(`http://localhost:8000/api/users/${this.state.searchText}`)
+		fetch(`https://vol-net-api.herokuapp.com/api/users/${this.state.searchText}`)
 		.then(response=>response.json())
 		.then(res=>{
 			if(res.success){

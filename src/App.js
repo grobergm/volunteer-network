@@ -19,6 +19,7 @@ class App extends Component {
     this.handleLogout=this.handleLogout.bind(this)
     this.handleChangeView=this.handleChangeView.bind(this)
     this.handleProfileStateChange=this.handleProfileStateChange.bind(this)
+    this.handleDeleteProfile=this.handleDeleteProfile.bind(this)
   }
 
   handleLogin(profile){
@@ -41,6 +42,22 @@ class App extends Component {
     newProfileState[key]=value;
     console.log(newProfileState)
     this.setState({profile:newProfileState})
+  }
+
+  handleDeleteProfile(){
+    fetch(`https://vol-net-api.herokuapp.com/${this.state.profile._id}`,{
+      method:'DELETE',
+      headers:{
+        'Content-Type': 'application/json',
+        'authorization': localStorage['token']
+      },
+    })
+    .then(res=>res.json())
+    .then(response=>{
+      if (response.success){
+        this.handleLogout()
+      }
+    })
   }
 
   renderView(){
@@ -79,6 +96,7 @@ class App extends Component {
             {currentView}
             </div>
             </div>
+            <button onClick={this.handleDeleteProfile} className='btn btn-danger'>Delete Profile</button>
           </div>
         </div>
       )

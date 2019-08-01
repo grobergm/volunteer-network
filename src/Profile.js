@@ -1,12 +1,14 @@
 import React from 'react';
 import Moment from 'moment';
 
-function Profile({profile}){
 
+
+function Profile({profile}){
 	return (
 		<div>
 			<h1>{profile.name}</h1>
-			<p>{profile.email}</p>	
+			<p>{profile.email}</p>
+
 			{
 				profile.timeLine.map((activity,index)=>{
 					return (
