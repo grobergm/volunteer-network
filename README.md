@@ -1,16 +1,18 @@
-# Volunteer Network
+# Volunteer Network (front-end)
 
 ### Contributors
 Matt Groberg
 
-### Vertion
+### Version
 1.0
 
 ## Description
 
 [Visit App](https://volunteer-network.herokuapp.com/)
 
-Volunteer Network is a single page (full stack) app for coordinating volunteer projects. The Goal is to make it easy to start projects, track volunteers, and have a profile that shows a summary of your volunteer experiences. 
+This repo is the front-end of a full stack MERN app (MongoDB, Express, React, and NodeJS).
+
+Volunteer Network is a single page (full stack) app for coordinating volunteer projects. The goal is to make it easy to start projects, track volunteers, and have a profile that shows a summary of your volunteer experiences. 
 
 In this app, users can:
 * Create password secured profiles and login
@@ -19,9 +21,6 @@ In this app, users can:
 * Sign up for Friend's projects
 * Show their activities on a timeline
 
-
-This repo is the front-end of a full stack MERN app (MongoDB, Express, React, and NodeJS). To see repo for the server-side code [click here](https://github.com/grobergm/vol-api)
-
 ### Tech Stack
 
 #### Front-End
@@ -29,6 +28,8 @@ This repo is the front-end of a full stack MERN app (MongoDB, Express, React, an
 * Bootstrap (CSS Components)
 
 #### Back-End
+To see repo for the server-side code [click here](https://github.com/grobergm/vol-api)
+
 * Express.js (Server)
 * MongoDB (Database)
 * Mongoose (Object Data Modeling)
