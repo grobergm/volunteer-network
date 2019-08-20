@@ -4,9 +4,12 @@ import SideNav from './SideNav';
 import Login from './Login';
 import SignUp from './SignUp';
 import Profile from './Profile';
-import Friends from './Friends';
+import FriendList from './FriendList';
 import ProjectList from './ProjectList';
 import './App.css';
+
+// import {changeView} from './redux/actionCreator';
+import { connect } from 'react-redux';
 
 class App extends Component {
   constructor(){
@@ -106,4 +109,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps=state=>{
+  return{
+    ...state
+  }
+}
+
+export default connect(mapStateToProps)(App)
