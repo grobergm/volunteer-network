@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import profile from './profile';
-import {addToTimeLine, addProject, addFriend} from './actionCreator';
+import {loadProfile, addToTimeLine, addProject, addFriend} from './actionCreator';
 
 describe('Profile State Changes',()=>{
 	const initialState={
@@ -13,6 +13,13 @@ describe('Profile State Changes',()=>{
 	test('returns initial state if unknown action type',()=>{
 		expect(profile(initialState,{type:null})).toEqual(initialState)
 	})
+
+	test('loads initial profile',()=>{
+		const action=loadProfile(initialState);
+		expect(profile({},action)).toEqual(initialState)
+	})
+
+
 
 	test('adds description and momemnt to timeline',()=>{
 		const action= addToTimeLine('exciting new activity', '08-17-2019')

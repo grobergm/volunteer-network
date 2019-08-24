@@ -1,3 +1,10 @@
+export const loadProfile=(profile)=>{
+	return {
+		type: 'LOAD_PROFILE',
+		profile:profile
+	}
+}
+
 export const addToTimeLine=(description,date)=>{
 	return {
 		type:'ADD_TO_TIMELINE',

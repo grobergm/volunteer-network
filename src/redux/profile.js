@@ -1,5 +1,7 @@
 const profile = (state={},action)=>{
 	switch(action.type){
+		case 'LOAD_PROFILE':
+			return action.profile
 		case 'ADD_TO_TIMELINE':
 			return {
 				...state,
