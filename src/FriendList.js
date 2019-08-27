@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Profile from './Profile';
 import moment from 'moment'
+import { connect } from 'react-redux';
 
 class FriendList extends Component{
 	constructor(props){
@@ -27,7 +28,7 @@ class FriendList extends Component{
 				body: JSON.stringify({friendId:friend._id,friendName:friend.name}),
 				headers:{
 					'Content-Type': 'application/json',
-					'authorization': localStorage['token']
+					'authorization': this.props.profile.token
 			}
 		})
 		.then(response=>{
@@ -91,12 +92,15 @@ class FriendList extends Component{
 						return <p key={index}>{friend.name} <button className="btn btn-primary" onClick={()=>{this.setState({friendDetail:friend})}}>View Timeline</button></p>
 					})
 				}
-
-
 			</div>
 		)
+	}	
+}
+
+const mapStateToProps=state=>{
+	return {
+		profile:state.profile
 	}
-	
 }
 
 export default FriendList

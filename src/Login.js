@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeView, loadProfile } from './redux/actionCreator';
 
 class Login extends Component{
 	constructor(props){
@@ -11,14 +13,12 @@ class Login extends Component{
 		this.onSubmit=this.onSubmit.bind(this)
 	}
 
-
 	handleChange(e){
-		this.setState({
-			[e.target.name]:e.target.value
-		})
+		this.setState({[e.target.name]:e.target.value})
 	}
 
 	onSubmit(event){
+		console.log('submitting')
 		event.preventDefault();
 		if (this.state.email && this.state.password){
 		
@@ -32,9 +32,12 @@ class Login extends Component{
 			.then(response=>response.json())
 			.then(res=>{
 				if (res.success){
-					localStorage['token']=res.token;
-					this.props.onLogin(res.profile)
+					// token should also be loaded with redux
+					// localStorage['token']=res.token;
+					this.props.dispatch(loadProfile(res.profile,res.token))
+					this.props.dispatch(changeView('Profile'))
 				} else {
+					console.log(res.message)
 				}
 			})
 		}
@@ -83,7 +86,7 @@ class Login extends Component{
 				<button 
 					style={{width:'18rem', marginTop:'2rem'}} 
 					className='btn btn-block btn-danger' 
-					onClick={this.props.switchToSignup}>Sign Up
+					onClick={()=>{this.props.dispatch(changeView('SignUp'))}}>Sign Up
 				</button>
 					
 			</div>
@@ -91,4 +94,4 @@ class Login extends Component{
 	}
 }
 
-export default Login
+export default connect()(Login)

@@ -12,22 +12,12 @@ import './App.css';
 import { connect } from 'react-redux';
 
 class App extends Component {
+
   constructor(){
     super()
-    this.state={
-      view:'Login',
-      profile:{}
-    }
-    this.handleLogin=this.handleLogin.bind(this)
     this.handleLogout=this.handleLogout.bind(this)
-    this.handleChangeView=this.handleChangeView.bind(this)
     this.handleProfileStateChange=this.handleProfileStateChange.bind(this)
     this.handleDeleteProfile=this.handleDeleteProfile.bind(this)
-  }
-
-  handleLogin(profile){
-    this.setState({profile:profile})
-    this.setState({view:'Profile'})
   }
 
   handleLogout(){
@@ -36,12 +26,8 @@ class App extends Component {
     localStorage.clear()
   }
 
-  handleChangeView(selectedView){
-    this.setState({view:selectedView})
-  }
-
   handleProfileStateChange(key,value){
-    const newProfileState={...this.state.profile}
+    const newProfileState={...this.props.profile}
     newProfileState[key]=value;
     console.log(newProfileState)
     this.setState({profile:newProfileState})
@@ -49,7 +35,7 @@ class App extends Component {
 
   handleDeleteProfile(){
     if(window.confirm("Are you sure?")){
-      fetch(`https://vol-net-api.herokuapp.com/api/users/${this.state.profile._id}`,{
+      fetch(`https://vol-net-api.herokuapp.com/api/users/${this.props.profile._id}`,{
         method:'DELETE',
         headers:{
           'Content-Type': 'application/json',
@@ -67,37 +53,37 @@ class App extends Component {
   }
 
   renderView(){
-    switch (this.state.view) {
+    switch (this.props.view) {
       case 'Profile':
-        return <Profile profile={this.state.profile} />
+        return <Profile />
         break;
       case 'Friends':
-        return <Friends profile={this.state.profile} onProfileStateChange={this.handleProfileStateChange} />
+        return <FriendList />
         break;
       case 'Projects':
-        return <ProjectList profile={this.state.profile} onProfileStateChange={this.handleProfileStateChange} />
+        return <ProjectList />
         break;
       case 'Settings':
         return <div><h1>Settings</h1><button onClick={this.handleDeleteProfile} className='btn btn-danger'>Delete Profile</button></div>
       default:
-        return <Profile profile={this.state.profile} />
+        return <Profile />
     }
   }
 
   render(){
     let currentView= this.renderView()
     
-    if (this.state.view==="Login"){
-      return <Login onLogin={this.handleLogin} switchToSignup={()=>{this.handleChangeView('SignUp')}} />
-    } else if (this.state.view==='SignUp'){
-      return <SignUp onLogin={this.handleLogin} switchToLogin={()=>{this.handleChangeView('Login')}} />
+    if (this.props.view==="Login"){
+      return <Login />
+    } else if (this.props.view==='SignUp'){
+      return <SignUp onLogin={this.handleLogin} />
     } else {
       return (
         <div>
-          <Nav onLogout={this.handleLogout} switchToSettings={()=>{this.handleChangeView('Settings')}} />
+          <Nav onLogout={this.handleLogout} />
           <div className="container">
             <div className="col">
-              <SideNav onChangeView={this.handleChangeView} currentView={this.state.view}/>
+              <SideNav onChangeView={this.handleChangeView} currentView={this.props.view}/>
             </div>
             <div className="col">
             {currentView}
@@ -111,7 +97,7 @@ class App extends Component {
 
 const mapStateToProps=state=>{
   return{
-    ...state
+    view:state.view
   }
 }
 

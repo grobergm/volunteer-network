@@ -1,7 +1,8 @@
-export const loadProfile=(profile)=>{
+export const loadProfile=(profile,token)=>{
 	return {
 		type: 'LOAD_PROFILE',
-		profile:profile
+		profile:profile,
+		token:token
 	}
 }
 

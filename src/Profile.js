@@ -1,14 +1,12 @@
 import React from 'react';
 import Moment from 'moment';
-
-
+import { connect } from 'react-redux';
 
 function Profile({profile}){
 	return (
 		<div>
 			<h1>{profile.name}</h1>
 			<p>{profile.email}</p>
-
 			{
 				profile.timeLine.map((activity,index)=>{
 					return (
@@ -26,4 +24,8 @@ function Profile({profile}){
 	)
 }
 
-export default Profile
+const mapStateToProps=state=>{
+	return {profile:state.profile}
+}
+
+export default connect(mapStateToProps)(Profile)

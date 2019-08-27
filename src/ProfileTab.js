@@ -1,16 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { changeView } from './redux/actionCreator';
 
-function ProfileTab({currentView, tab, onChangeView}){
+function ProfileTab({tab, dispatch, view}){
 	let selected='nav-Link';
-	if (currentView===tab){
+	if (view===tab){
 		selected+=' bg-primary'
 	}
 	return (
 		<li className={selected}>
 	    <a className="nav-link" 
-	    onClick={()=>{onChangeView(tab)}}>{tab}</a>
+	    onClick={()=>{dispatch(changeView(tab))}}>{tab}</a>
 	  </li>
 	)
 }
 
-export default ProfileTab
+const mapStateToProps=state=>{
+	return {view:state.view}
+}
+export default connect(mapStateToProps)(ProfileTab)
