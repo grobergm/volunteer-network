@@ -12,12 +12,9 @@ function SideNav({onChangeView, currentView}){
 				return (
 					<ProfileTab 
 				  	tab={tab}
-				  	key={index}
-				  	currentView={currentView}
-				  	onChangeView={onChangeView} />
+				  	key={index} />
 				)
 			})
-		  
 		}
 		</ul>
 	)

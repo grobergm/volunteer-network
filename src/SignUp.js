@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeView, loadProfile } from './redux/actionCreator';
 
 class SignUp extends Component{
 	constructor(){
@@ -32,8 +34,8 @@ class SignUp extends Component{
 			.then(response=>response.json())
 			.then(res=>{
 				if (res.success){
-					localStorage['token']=res.token;
-					this.props.onLogin(res.profile)
+					this.props.dispatch(loadProfile(res.profile,res.token))
+					this.props.dispatch(changeView('Profile'))
 				} else {
 					console.log(res.message)
 				}
@@ -97,11 +99,11 @@ class SignUp extends Component{
 				<button 
 					style={{marginTop:'2rem',width:'18rem'}} 
 					className='btn btn-block btn-primary' 
-					onClick={this.props.switchToLogin}>Log In
+					onClick={()=>{this.props.dispatch(changeView('Login'))}}>Log In
 				</button>
 			</div>
 		)
 	}
 }
 
-export default SignUp
+export default connect()(SignUp)
