@@ -3,7 +3,7 @@ const view=(state='Login',action)=>{
 		case 'CHANGE_VIEW':
 			return action.view
 		default: 
-			return 'Login'
+			return state
 	}
 }
 

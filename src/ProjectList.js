@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Project from './Project';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { addToTimeLine, addProject } from './redux/actionCreator';
 
 class ProjectList extends Component{
 	constructor(props){
@@ -25,7 +27,6 @@ class ProjectList extends Component{
 		if (this.props.profile.friends.length){
 			this.setState({selectFriendId:this.props.profile.friends[0]._id})
 		}
-
 	}
 
 	resetTaskForm(){
@@ -40,15 +41,13 @@ class ProjectList extends Component{
 			body: JSON.stringify({name:this.state.projectName,tasks:this.state.tasks}),
 			headers:{
 				'Content-Type': 'application/json',
-				'authorization': localStorage['token']
+				'authorization': this.props.profile.token
 			},
 		})
 		.then(res=>res.json())
 		.then(response=>{
-			const newTimeLine=[{description:`Created Project: ${this.state.projectName}`,date: moment()}, ...this.props.profile.timeLine]
-			this.props.onProfileStateChange('timeLine',newTimeLine)
-			const newProjects=[response.project, ...this.props.profile.projects]
-			this.props.onProfileStateChange('projects',newProjects)
+			this.props.dispatch(addToTimeLine(`Created Project: ${this.state.projectName}`,moment()))
+			this.props.dispatch(addProject(response.project))
 			this.setState({view:'myProjects'})
 		})
 		
@@ -79,10 +78,8 @@ class ProjectList extends Component{
 		})
 		.then(res=>res.json())
 		.then(response=>{
-			const newTimeLine=[{description:`Signed up for: ${response.project.name}`,date: moment()}, ...this.props.profile.timeLine]
-			this.props.onProfileStateChange('timeLine',newTimeLine)
-			const newProjects=[response.project, ...this.props.profile.projects]
-			this.props.onProfileStateChange('projects',newProjects)
+			this.props.dispatch(addToTimeLine(`Signed up for: ${response.project.name}`,moment()))
+			this.props.dispatch(addProject(response.project))
 			this.setState({view:'volProjects'})
 		})
 	}
@@ -144,6 +141,7 @@ class ProjectList extends Component{
        			</div>
 
 						:
+						
 						<div style={{maxWidth:'500px'}}>
 							<div className="form-group">
 			       		<h2>New Project</h2>
@@ -244,5 +242,11 @@ class ProjectList extends Component{
 	
 }
 
-export default ProjectList
+
+const mapStateToProps=state=>{
+	return {
+		profile:state.profile
+	}
+}
+export default connect(mapStateToProps)(ProjectList)
 

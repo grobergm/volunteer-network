@@ -7,7 +7,7 @@ import { changeView, loadProfile } from './redux/actionCreator';
 function Nav({dispatch}){
 	const logOut=()=>{
 		dispatch(changeView('Login'))
-		loadProfile({},'')
+		dispatch(loadProfile({},''))
 	}
 	return(
 		<ul className="nav">

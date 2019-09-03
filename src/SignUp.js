@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeView } from './redux/actionCreator';
+import { changeView, loadProfile } from './redux/actionCreator';
 
 class SignUp extends Component{
 	constructor(){
@@ -34,8 +34,8 @@ class SignUp extends Component{
 			.then(response=>response.json())
 			.then(res=>{
 				if (res.success){
-					localStorage['token']=res.token;
-					this.props.onLogin(res.profile)
+					this.props.dispatch(loadProfile(res.profile,res.token))
+					this.props.dispatch(changeView('Profile'))
 				} else {
 					console.log(res.message)
 				}

@@ -2,13 +2,17 @@ import React from 'react';
 import Moment from 'moment';
 import { connect } from 'react-redux';
 
-function Profile({profile}){
+function Profile(props){
+	let proDetail=props.profile
+	if (props.friendProfile){
+		proDetail=props.friendProfile
+	}
 	return (
 		<div>
-			<h1>{profile.name}</h1>
-			<p>{profile.email}</p>
+			<h1>{proDetail.name}</h1>
+			<p>{proDetail.email}</p>
 			{
-				profile.timeLine.map((activity,index)=>{
+				proDetail.timeLine.map((activity,index)=>{
 					return (
 					<p key={index} style={{borderBottom:'1px solid gray',padding:'1rem 0'}}>
 						{activity.description}

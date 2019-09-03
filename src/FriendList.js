@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Profile from './Profile';
 import moment from 'moment'
 import { connect } from 'react-redux';
+import { addToTimeLine, addFriend } from './redux/actionCreator';
 
 class FriendList extends Component{
 	constructor(props){
@@ -32,10 +33,8 @@ class FriendList extends Component{
 			}
 		})
 		.then(response=>{
-			const newTimeLine=[{description:`Started following: ${friend.name}`,date: moment()}, ...this.props.profile.timeLine]
-			this.props.onProfileStateChange('timeLine',newTimeLine);
-			const newFriends=[friend,...this.props.profile.friends]
-			this.props.onProfileStateChange('friends',newFriends)
+			this.props.dispatch(addToTimeLine(`Started following: ${friend.name}`,moment()))
+			this.props.dispatch(addFriend(friend))
 			this.setState({friendDetail:null})
 		})
 	}
@@ -83,7 +82,7 @@ class FriendList extends Component{
 							onClick={()=>{this.setState({friendDetail:null})}}>
 							Hide
 						</button>
-						<Profile profile={this.state.friendDetail}  />
+						<Profile friendProfile={this.state.friendDetail}  />
 					</div>
 					: null
 				}
@@ -103,4 +102,4 @@ const mapStateToProps=state=>{
 	}
 }
 
-export default FriendList
+export default connect(mapStateToProps)(FriendList)

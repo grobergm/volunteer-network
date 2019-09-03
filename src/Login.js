@@ -18,10 +18,8 @@ class Login extends Component{
 	}
 
 	onSubmit(event){
-		console.log('submitting')
 		event.preventDefault();
 		if (this.state.email && this.state.password){
-		
 			fetch('https://vol-net-api.herokuapp.com/api/authenticate',{
 				method:'POST',
 				body: JSON.stringify(this.state),
@@ -32,8 +30,6 @@ class Login extends Component{
 			.then(response=>response.json())
 			.then(res=>{
 				if (res.success){
-					// token should also be loaded with redux
-					// localStorage['token']=res.token;
 					this.props.dispatch(loadProfile(res.profile,res.token))
 					this.props.dispatch(changeView('Profile'))
 				} else {
