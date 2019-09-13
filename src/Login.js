@@ -52,7 +52,7 @@ class Login extends Component{
 				<h1>Volunteer Network</h1>
 				<div className="card" style={{width: '18rem'}}>
 				  <div className="card-body">
-				    <h5 className="card-title">Log In</h5>
+				    <h5 className="card-title">LogIn</h5>
 				    	<form onSubmit={this.onSubmit}>
 							  <div className="form-group">
 							    <label htmlFor="email">Email address</label>
